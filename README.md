@@ -80,42 +80,59 @@ A RESTful API for a job portal application built with Laravel, enabling companie
 ### Setup Instructions
 
 1. Clone the repository:
-    ```bash
+
+```bash
     git clone https://github.com/Enricosaputra/job-portal.git
     cd job-portal
-    Install dependencies:
-    ```
+```
 
-bash
-composer install
-Configure environment:
+2. Install dependencies:
 
-bash
+```bash
+    composer install
+```
+
+3. Configure environment:
+
+```bash
 cp .env.example .env
+```
+
 Edit .env with your database credentials and app settings.
 
-Generate application key:
+4. Generate application key:
 
-bash
+```bash
 php artisan key:generate
-Run migrations:
+```
 
-bash
+5. Run migrations:
+
+```bash
 php artisan migrate
-Install Laravel Sanctum:
+```
 
-bash
+6. Install Laravel Sanctum:
+
+```bash
 php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
-Create storage link:
+```
 
-bash
+7. Create storage link:
+
+```bash
 php artisan storage:link
-Start development server:
+```
 
-bash
+8. Start development server:
+
+```bash
 php artisan serve
+```
+
 📚 API Documentation
 View Postman Collection
+https://www.postman.com/maintenance-physicist-61027762/workspace/job-portal/collection/18290709-3938c871-f3a7-490f-a456-1da2496ff660?action=share&creator=18290709
 
 📝 License
 This project is open-source and available under the MIT License.
