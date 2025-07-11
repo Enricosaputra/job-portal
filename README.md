@@ -75,7 +75,7 @@ A RESTful API for a job portal application built with Laravel. This API allows c
 ## Installation
 
 1. Clone the repository:
-   git clone https://github.com/yourusername/job-portal-api.git
+   git clone https://github.com/Enricosaputra/job-portal.git
    cd job-portal
 
 Install dependencies:
@@ -96,7 +96,7 @@ Install Laravel Sanctum:
 php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 
 Storage Link
-php artisan storage:link 
+php artisan storage:link
 
 Start development server:
 php artisan serve
