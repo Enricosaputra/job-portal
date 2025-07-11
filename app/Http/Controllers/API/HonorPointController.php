@@ -24,39 +24,4 @@ class HonorPointController extends Controller
 
         return response()->json(['message' => 'Only freelancers have honor points'], 403);
     }
-
-    public function store(Request $request, Job $job)
-    {
-        if ($job->user_id !== Auth::id()) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'points' => 'required|integer|min:1'
-        ]);
-
-        $freelancer = User::find($validated['user_id']);
-
-        if (!$freelancer->isFreelancer()) {
-            return response()->json(['message' => 'User is not a freelancer'], 403);
-        }
-
-        $honorPoint = HonorPoint::create([
-            'user_id' => $validated['user_id'],
-            'job_id' => $job->id,
-            'points' => $validated['points']
-        ]);
-
-        return response()->json($honorPoint, 201);
-    }
-
-    public function show(HonorPoint $honorPoint)
-    {
-        if ($honorPoint->user_id !== Auth::id() && $honorPoint->job->user_id !== Auth::id()) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
-        return $honorPoint->load('user', 'job');
-    }
 }

@@ -29,20 +29,21 @@ Route::post('/login', [APIAuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [APIAuthController::class, 'logout']);
     Route::get('/profile', [ProfileController::class, 'getProfile']);
+
     // Jobs
     Route::apiResource('jobs', APIJobController::class);
     Route::get('/jobs/{job}/applications', [APIJobController::class, 'applications']);
-    // Get applicants for a specific job (Company only)
     Route::get('/jobs/{job}/applicants', [APIJobController::class, 'getApplicants']);
-    // View CV (returns file data or URL)
-    // Route::get('/applications/{application}/view-cv', [APIJobController::class, 'viewCv']);
-    Route::get('/company/cvs', [APIApplicationController::class, 'viewAllCvs']);
     Route::post('/jobs/{job}/complete', [APIJobController::class, 'completeJob'])
-        ->whereNumber('job'); // Ensures {job} is numeric
+        ->whereNumber('job');
+
     // Applications
     Route::apiResource('applications', APIApplicationController::class)->except(['store']);
     Route::post('/jobs/{job}/applications', [APIApplicationController::class, 'store']);
     Route::patch('/applications/{application}/status', [APIApplicationController::class, 'updateStatus']);
+    Route::get('/company/cvs', [APIApplicationController::class, 'viewAllCvs']);
+
+
     // Honor Points
     Route::apiResource('honor-points', APIHonorPointController::class)->except(['store']);
     Route::post('/jobs/{job}/honor-points', [APIHonorPointController::class, 'store']);

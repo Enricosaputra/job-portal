@@ -1,102 +1,121 @@
 # Job Portal API
 
-A RESTful API for a job portal application built with Laravel. This API allows companies to post jobs and freelancers to apply for them, with features for managing applications and tracking freelancer performance.
+![Laravel](https://img.shields.io/badge/Laravel-9.x-FF2D20?logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4?logo=php)
+![MySQL](https://img.shields.io/badge/MySQL-5.7+-4479A1?logo=mysql)
 
-## Technical Specifications
+A RESTful API for a job portal application built with Laravel, enabling companies to post jobs and freelancers to apply for them, with comprehensive application management and performance tracking features.
 
--   **PHP Version**: 8.0+
--   **MySQL Version**: 5.7+ (or MariaDB 10.2+)
--   **Laravel Version**: 9.x
--   **Authentication**: Laravel Sanctum (JWT tokens)
+## ✨ Features
 
-## Features
+### 🔐 Authentication
 
--   **User Authentication** (JWT via Laravel Sanctum)
+-   JWT-based authentication using Laravel Sanctum
+-   Role-based access control (company/freelancer)
+-   User registration and profile management
 
-    -   Register as company or freelancer
-    -   Login/logout functionality
-    -   Protected routes with role-based access
+### 💼 Job Management
 
--   **Job Management**
+-   Create, read, update, and delete job listings
+-   Draft/published status control
+-   Application tracking per job
 
-    -   Create, read, update, delete jobs
-    -   Draft/published status control
-    -   View applications per job
+### 📝 Application System
 
--   **Application System**
+-   Freelancers can apply to published jobs
+-   CV upload and management
+-   Application status workflow (pending → reviewed → hired/rejected → completed)
 
-    -   Freelancers can apply to published jobs
-    -   CV upload capability
-    -   Application status tracking (pending/reviewed/hired/rejected/completed)
+### 🏆 Honor Points System
 
--   **Honor Points**
-    -   Companies can award points to freelancers
-    -   Freelancers can track their earned points
+-   Companies can award points to freelancers
+-   Freelancer performance tracking
+-   Points history and analytics
 
-## API Endpoints
+## 🚀 API Endpoints
 
 ### Authentication
 
-| Method | Endpoint      | Description           |
-| ------ | ------------- | --------------------- |
-| POST   | /api/register | Register new user     |
-| POST   | /api/login    | Login and get token   |
-| POST   | /api/logout   | Invalidate token      |
-| GET    | /api/user     | Get current user data |
+| Method | Endpoint    | Description         | Access        |
+| ------ | ----------- | ------------------- | ------------- |
+| POST   | `/register` | Register new user   | Public        |
+| POST   | `/login`    | Login and get token | Public        |
+| POST   | `/logout`   | Logout user         | Authenticated |
+| GET    | `/profile`  | Get user profile    | Authenticated |
 
 ### Jobs
 
-| Method | Endpoint                    | Description                          |
-| ------ | --------------------------- | ------------------------------------ |
-| GET    | /api/jobs                   | List jobs                            |
-| POST   | /api/jobs                   | Create new job (company only)        |
-| GET    | /api/jobs/{id}              | Get job details                      |
-| PUT    | /api/jobs/{id}              | Update job (owner only)              |
-| DELETE | /api/jobs/{id}              | Delete job (owner only)              |
-| GET    | /api/jobs/{id}/applications | List job applications (company only) |
+| Method | Endpoint                  | Description                   | Access       |
+| ------ | ------------------------- | ----------------------------- | ------------ |
+| GET    | `/jobs`                   | List all jobs                 | Public       |
+| POST   | `/jobs`                   | Create new job                | Company only |
+| PUT    | `/jobs/{id}`              | Update job                    | Owner only   |
+| DELETE | `/jobs/{id}`              | Delete job                    | Owner only   |
+| GET    | `/jobs/{id}/applications` | List job applications         | Company only |
+| POST   | `/jobs/{id}/complete`     | Complete job and award points | Company only |
 
 ### Applications
 
-| Method | Endpoint                      | Description                    |
-| ------ | ----------------------------- | ------------------------------ |
-| POST   | /api/jobs/{id}/applications   | Apply to job (freelancer only) |
-| GET    | /api/applications             | List user's applications       |
-| GET    | /api/applications/{id}        | Get application details        |
-| PATCH  | /api/applications/{id}/status | Update status (company only)   |
-| GET    | /api/applications/{id}/cv     | Download CV (company only)     |
+| Method | Endpoint                    | Description               | Access          |
+| ------ | --------------------------- | ------------------------- | --------------- |
+| POST   | `/jobs/{id}/applications`   | Apply to job              | Freelancer only |
+| GET    | `/applications`             | List user's applications  | Freelancer only |
+| PATCH  | `/applications/{id}/status` | Update application status | Company only    |
+| GET    | `/company/cvs`              | View all applicant CVs    | Company only    |
 
 ### Honor Points
 
-| Method | Endpoint                    | Description                   |
-| ------ | --------------------------- | ----------------------------- |
-| POST   | /api/jobs/{id}/honor-points | Award points (company only)   |
-| GET    | /api/honor-points           | List points (freelancer only) |
+| Method | Endpoint        | Description        | Access          |
+| ------ | --------------- | ------------------ | --------------- |
+| GET    | `/honor-points` | List earned points | Freelancer only |
 
-## Installation
+## 🛠️ Installation
+
+### Prerequisites
+
+-   PHP 8.0+
+-   MySQL 5.7+ or MariaDB 10.2+
+-   Composer
+
+### Setup Instructions
 
 1. Clone the repository:
-   git clone https://github.com/Enricosaputra/job-portal.git
-   cd job-portal
+    ```bash
+    git clone https://github.com/Enricosaputra/job-portal.git
+    cd job-portal
+    Install dependencies:
+    ```
 
-Install dependencies:
+bash
 composer install
-
 Configure environment:
-cp .env.example .env
 
+bash
+cp .env.example .env
 Edit .env with your database credentials and app settings.
 
 Generate application key:
+
+bash
 php artisan key:generate
-
 Run migrations:
+
+bash
 php artisan migrate
-
 Install Laravel Sanctum:
+
+bash
 php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+Create storage link:
 
-Storage Link
+bash
 php artisan storage:link
-
 Start development server:
+
+bash
 php artisan serve
+📚 API Documentation
+View Postman Collection
+
+📝 License
+This project is open-source and available under the MIT License.

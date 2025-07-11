@@ -22,7 +22,7 @@ class Application extends Model
     protected $casts = [
         'completed_at' => 'datetime',
         // ... other casts
-    ];
+];
 
     public function job()
     {
